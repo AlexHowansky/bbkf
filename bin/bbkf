@@ -1,0 +1,26 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+if ($argc !== 2) {
+    echo "Usage: $argv[0] <file>\n";
+    exit(1);
+}
+
+function stdin()
+{
+    $stdin = '';
+    $fh = fopen('php://stdin', 'r');
+    stream_set_blocking($fh, false);
+    while (($line = fgets($fh)) !== false) {
+        $stdin .= $line;
+    }
+    return $stdin;
+}
+
+try {
+    (new \dotzero\Brainfuck((new \Ork\BooBooKittyFuck())->setImage($argv[1])->getSource(), stdin()))->run();
+} catch (Exception $e) {
+    echo 'Error: ' . $e->getMessage() . "\n";
+}

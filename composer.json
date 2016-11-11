@@ -1,0 +1,29 @@
+{
+    "name": "ork/bbkf",
+    "description": "A silly esoteric programming language based on images of cats.",
+    "homepage": "http://github.com/AlexHowansky/bbkf",
+    "license": "MIT",
+    "keywords": ["brainfuck"],
+    "authors": [
+        {
+            "name": "Alex Howansky",
+            "email": "alex.howansky@gmail.com",
+            "homepage": "https://github.com/AlexHowansky"
+        }
+    ],
+    "require": {
+        "dotzero/brainfuck": "*",
+        "ext-imagick": "*"
+    },
+    "require-dev": {
+        "ork/phpcs": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ork\\": "src"
+        }
+    },
+    "scripts": {
+        "phpcs": "./vendor/bin/phpcs"
+    }
+}
