@@ -4,6 +4,7 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 if ($argc !== 2) {
+    echo "Execute a BBKF source file.\n\n";
     echo "Usage: $argv[0] <file>\n";
     exit(1);
 }
