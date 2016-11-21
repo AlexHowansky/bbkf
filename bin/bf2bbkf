@@ -1,0 +1,16 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+if ($argc !== 2) {
+    echo "Compile a BF source file to BBKF.\n\n";
+    echo "Usage: $argv[0] <file>\n";
+    exit(1);
+}
+
+try {
+    echo (new \Ork\BooBooKittyFuck())->setSource($argv[1])->getImage();
+} catch (Exception $e) {
+    echo 'Error: ' . $e->getMessage() . "\n";
+}
