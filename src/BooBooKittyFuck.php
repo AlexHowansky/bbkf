@@ -51,6 +51,13 @@ class BooBooKittyFuck
     protected $imagePath = null;
 
     /**
+     * The image compression quality.
+     *
+     * @var integer
+     */
+    protected $quality = 40;
+
+    /**
      * The Brainfuck source for this program.
      *
      * @var string
@@ -100,6 +107,16 @@ class BooBooKittyFuck
     public function getImagePath()
     {
         return $this->imagePath;
+    }
+
+    /**
+     * Get the image compression quality.
+     *
+     * @return integer The image compression quality.
+     */
+    public function getQuality()
+    {
+        return $this->quality;
     }
 
     /**
@@ -210,6 +227,19 @@ class BooBooKittyFuck
     }
 
     /**
+     * Set the image compression quality.
+     *
+     * @param integer $quality The image compression quality.
+     *
+     * @return BooBooKittyFuck Allow method chaining.
+     */
+    public function setQuality($quality)
+    {
+        $this->quality = (int) $quality;
+        return $this;
+    }
+
+    /**
      * Set the Brainfuck source for this program.
      *
      * @param string $bf The Brainfuck source for this program.
@@ -250,6 +280,7 @@ class BooBooKittyFuck
             '0x0+0+0'
         );
         $this->image->setImageFormat('jpg');
+        $this->image->setImageCompressionQuality($this->quality);
 
         return $this;
 
