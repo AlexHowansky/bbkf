@@ -139,7 +139,7 @@ class BooBooKittyFuck
     {
 
         if (file_exists($file) === false) {
-            throw new \Exception('File does not exist: ' . $file);
+            throw new \RuntimeException('File does not exist: ' . $file);
         }
 
         $this->image = new \imagick($file);
@@ -147,7 +147,7 @@ class BooBooKittyFuck
             $this->image->getImageWidth() % $this->getTileSize() !== 0 ||
             $this->image->getImageHeight() % $this->getTileSize() !== 0
         ) {
-            throw new \Exception('Image size is not a multiple of tile size.');
+            throw new \RuntimeException('Image size is not a multiple of tile size.');
         }
 
         $this->source = '';
@@ -171,7 +171,9 @@ class BooBooKittyFuck
                 }
             }
         }
+
         return $this;
+
     }
 
     /**
@@ -187,7 +189,7 @@ class BooBooKittyFuck
         foreach (self::INSTRUCTIONS as $instruction => $name) {
             $file = $this->imagePath . $name . '.jpg';
             if (file_exists($file) === false) {
-                throw new \Exception('Unable to find image for instruction: ' . $name);
+                throw new \RuntimeException('Unable to find image for instruction: ' . $name);
             }
             $this->cats[$instruction] = new \imagick($this->imagePath . $name . '.jpg');
         }
