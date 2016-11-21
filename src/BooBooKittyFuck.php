@@ -5,8 +5,8 @@
  *
  * @package   Ork_BooBooKittyFuck
  * @copyright 2016 Alex Howansky (https://github.com/AlexHowansky)
- * @license   https://github.com/AlexHowansky/ork-base/blob/master/LICENSE MIT License
- * @link      https://github.com/AlexHowansky/ork-base
+ * @license   https://github.com/AlexHowansky/bbkf/blob/master/LICENSE MIT License
+ * @link      https://github.com/AlexHowansky/bbkf
  */
 
 namespace Ork;
