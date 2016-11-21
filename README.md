@@ -21,6 +21,27 @@ __]__ | ![close](images/close.jpg) | If the byte at the data pointer is nonzero,
 
 The bin directory contains the following tools:
 
-* __bbkf__ - Compile and run a Boo Boo Kitty Fuck program.
-* __bbkf2bf__ - Compile a Boo Boo Kitty Fuck program to Brainfuck.
-* __bf2bbkf__ - Compile a Brainfuck program to Boo Boo Kitty Fuck.
+### bbkf
+Compile and run a Boo Boo Kitty Fuck program.
+
+    % ./bin/bbkf example/hello.jpg
+    Hello World!
+
+If the program requires any input, it will be read from STDIN.
+
+    echo "test" | ./bin/bbkf example/echo.jpg
+    test
+
+### bbkf2bf
+Compile a Boo Boo Kitty Fuck program to Brainfuck. Outputs to STDOUT.
+
+    % ./bin/bbkf2bf example/hello.jpg
+    ++++++++[<++++[<++<+++<+++<+>>>>-]<+<+<-<<+[>]>-]<<.<---.+++++++..+++.<<.>-.>.+++.------.--------.<<+.<++.
+
+    % ./bin/bbkf2bf examples/echo.jpg
+    ,[.,]
+
+### bf2bbkf
+Compile a Brainfuck program to Boo Boo Kitty Fuck. Outputs to STDOUT.
+
+    % ./bin/bf2bbkf example/hello.bf > /tmp/hello.jpg
