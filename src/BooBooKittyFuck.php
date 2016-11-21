@@ -39,7 +39,7 @@ class BooBooKittyFuck
     /**
      * The image for this program.
      *
-     * @var \imagick
+     * @var \Imagick
      */
     protected $image = null;
 
@@ -82,11 +82,11 @@ class BooBooKittyFuck
     /**
      * Get the image for this program.
      *
-     * @return \imagick The image for this program.
+     * @return \Imagick The image for this program.
      */
     public function getImage()
     {
-        if ($this->image instanceof \imagick === false) {
+        if ($this->image instanceof \Imagick === false) {
             throw new \RuntimeException('Image must first be set with setImage() or setSource().');
         }
         return $this->image;
@@ -152,7 +152,7 @@ class BooBooKittyFuck
             throw new \RuntimeException('File does not exist: ' . $file);
         }
 
-        $this->image = new \imagick($file);
+        $this->image = new \Imagick($file);
         if (
             $this->image->getImageWidth() % $this->getTileSize() !== 0 ||
             $this->image->getImageHeight() % $this->getTileSize() !== 0
@@ -204,7 +204,7 @@ class BooBooKittyFuck
             if (file_exists($file) === false) {
                 throw new \RuntimeException('Unable to find image for instruction: ' . $name);
             }
-            $this->cats[$instruction] = new \imagick($this->imagePath . $name . '.jpg');
+            $this->cats[$instruction] = new \Imagick($this->imagePath . $name . '.jpg');
         }
         return $this;
     }
@@ -232,7 +232,7 @@ class BooBooKittyFuck
         $size = strlen($this->source);
         $xsize = ceil(sqrt($size));
         $ysize = ceil($size / $xsize);
-        $montage = new \imagick();
+        $montage = new \Imagick();
 
         for ($y = 0; $y < $ysize; $y++) {
             for ($x = 0; $x < $xsize; $x++) {
@@ -243,10 +243,10 @@ class BooBooKittyFuck
         }
 
         $this->image = $montage->montageImage(
-            new \imagickDraw(),
+            new \ImagickDraw(),
             $xsize . 'x' . $ysize . '+0+0',
             $this->tileSize . 'x' . $this->tileSize . '+0+0',
-            \imagick::MONTAGEMODE_UNFRAME,
+            \Imagick::MONTAGEMODE_UNFRAME,
             '0x0+0+0'
         );
         $this->image->setImageFormat('jpg');
