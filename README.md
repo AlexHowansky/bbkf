@@ -45,3 +45,7 @@ Compile a Boo Boo Kitty Fuck program to Brainfuck. Outputs to STDOUT.
 Compile a Brainfuck program to Boo Boo Kitty Fuck. Outputs to STDOUT.
 
     % ./bin/bf2bbkf example/hello.bf > /tmp/hello.jpg
+
+## Example
+Here is the ubiquitous "Hello World!" program in BBKF:
+![Hello World!](examples/hello.jpg)
