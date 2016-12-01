@@ -3,14 +3,50 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-if ($argc !== 2) {
-    echo "Compile a BF source file to BBKF.\n\n";
-    echo "Usage: $argv[0] <file>\n";
+if ($argc < 2) {
+    echo<<<EOF
+Compile a BF source file to BBKF.
+
+Usage: $argv[0] <source> [<size>]
+
+Parameters:
+    source    A BF source string or a file name containing BF source.
+
+    size      An optional dimension format, in <columns>x<rows> format.
+              If one dimension is left out, it will be automatically
+              determined based on the other. If both are left out, the
+              output image will be squareish.
+
+Examples:
+
+    $argv[0] /path/to/file.bf > out.jpg
+
+    $argv[0] /path/to/file.bf 10x > out.jpg
+
+    $argv[0] /path/to/file.bf x10 > out.jpg
+
+    $argv[0] "+[>+]" 5x1 > out.jpg
+
+
+EOF;
     exit(1);
 }
 
 try {
-    echo (new \Ork\BooBooKittyFuck())->setSource($argv[1])->getImage();
+    $bbkf = new \Ork\BooBooKittyFuck();
+    if (empty($argv[2]) === false) {
+        if (preg_match('/^(\d*)x(\d*)$/', $argv[2], $match) === 1) {
+            if (empty($match[1]) === false) {
+                $bbkf->setXSize($match[1]);
+            }
+            if (empty($match[2]) === false) {
+                $bbkf->setYSize($match[2]);
+            }
+        } else {
+            throw new Exception('Invalid dimension format.');
+        }
+    }
+    echo $bbkf->setSource($argv[1])->getImage();
 } catch (Exception $e) {
     echo 'Error: ' . $e->getMessage() . "\n";
 }

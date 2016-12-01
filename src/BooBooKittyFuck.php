@@ -79,6 +79,24 @@ class BooBooKittyFuck
     protected $tileSize = 128;
 
     /**
+     * The number of tile columns in the image.
+     *
+     * Defaults to square-ish if not specified.
+     *
+     * @var int
+     */
+    protected $xSize = null;
+
+    /**
+     * The number of tile rows in the image.
+     *
+     * Defaults to square-ish if not specified.
+     *
+     * @var int
+     */
+    protected $ySize = null;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -153,6 +171,26 @@ class BooBooKittyFuck
     }
 
     /**
+     * Get the number of tile columns in the image.
+     *
+     * @return int The number of tile columns in the image.
+     */
+    public function getXSize()
+    {
+        return $this->xSize;
+    }
+
+    /**
+     * Get the number of tile rows in the image.
+     *
+     * @return int The number of tile rows in the image.
+     */
+    public function getYSize()
+    {
+        return $this->ySize;
+    }
+
+    /**
      * Set the image for this program.
      *
      * This will open the image file and analyze it against the
@@ -178,11 +216,11 @@ class BooBooKittyFuck
         }
 
         $this->source = '';
-        $width = $this->image->getImageWidth() / $this->getTileSize();
-        $height = $this->image->getImageHeight() / $this->getTileSize();
+        $this->xSize = $this->image->getImageWidth() / $this->getTileSize();
+        $this->ySize = $this->image->getImageHeight() / $this->getTileSize();
 
-        for ($y = 0; $y < $height; $y++) {
-            for ($x = 0; $x < $width; $x++) {
+        for ($y = 0; $y < $this->ySize; $y++) {
+            for ($x = 0; $x < $this->xSize; $x++) {
                 $tile = $this->image->clone();
                 $tile->cropImage(
                     $this->getTileSize(),
@@ -257,15 +295,28 @@ class BooBooKittyFuck
 
         // Strip non-BF characters.
         $this->source = preg_replace($regex, '', $bf);
-
         $num = 0;
-        $size = strlen($this->source);
-        $xsize = ceil(sqrt($size));
-        $ysize = ceil($size / $xsize);
         $montage = new \Imagick();
 
-        for ($y = 0; $y < $ysize; $y++) {
-            for ($x = 0; $x < $xsize; $x++) {
+        $size = strlen($this->source);
+        if (empty($this->xSize) === true) {
+            if (empty($this->ySize) === true) {
+                $this->xSize = ceil(sqrt($size));
+            } else {
+                $this->xSize = ceil($size / $this->ySize);
+            }
+        }
+        if (empty($this->ySize) === true) {
+            $this->ySize = ceil($size / $this->xSize);
+        }
+        if ($this->xSize * $this->ySize < $size) {
+            throw new \RuntimeException(
+                'xSize and ySize are not large enough to contain the required number of tiles.'
+            );
+        }
+
+        for ($y = 0; $y < $this->ySize; $y++) {
+            for ($x = 0; $x < $this->xSize; $x++) {
                 if ($num < $size) {
                     $montage->addImage($this->cats[$this->source[$num++]]);
                 }
@@ -274,7 +325,7 @@ class BooBooKittyFuck
 
         $this->image = $montage->montageImage(
             new \ImagickDraw(),
-            $xsize . 'x' . $ysize . '+0+0',
+            $this->xSize . 'x' . $this->ySize . '+0+0',
             $this->tileSize . 'x' . $this->tileSize . '+0+0',
             \Imagick::MONTAGEMODE_UNFRAME,
             '0x0+0+0'
@@ -309,6 +360,32 @@ class BooBooKittyFuck
     public function setTileSize($size)
     {
         $this->tileSize = $size;
+        return $this;
+    }
+
+    /**
+     * Set the number of tile columns in the image.
+     *
+     * @param int $xSize The number of tile columns in the image.
+     *
+     * @return BooBooKittyFuck Allow method chaining.
+     */
+    public function setXSize($xSize)
+    {
+        $this->xSize = $xSize;
+        return $this;
+    }
+
+    /**
+     * Set the number of tile rows in the image.
+     *
+     * @param int $ySize The number of tile rows in the image.
+     *
+     * @return BooBooKittyFuck Allow method chaining.
+     */
+    public function setYSize($ySize)
+    {
+        $this->ySize = $ySize;
         return $this;
     }
 
