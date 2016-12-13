@@ -10,7 +10,7 @@ if ($argc !== 2) {
 }
 
 try {
-    echo (new \Ork\BooBooKittyFuck())->setImage($argv[1])->getSource();
+    echo (new \Ork\BooBooKittyFuck\Compiler())->setImage($argv[1])->getSource();
 } catch (Exception $e) {
     echo 'Error: ' . $e->getMessage() . "\n";
 }

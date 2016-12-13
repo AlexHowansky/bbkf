@@ -33,7 +33,7 @@ EOF;
 }
 
 try {
-    $bbkf = new \Ork\BooBooKittyFuck();
+    $bbkf = new \Ork\BooBooKittyFuck\Compiler();
     if (empty($argv[2]) === false) {
         if (preg_match('/^(\d*)x(\d*)$/', $argv[2], $match) === 1) {
             if (empty($match[1]) === false) {

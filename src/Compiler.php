@@ -9,12 +9,12 @@
  * @link      https://github.com/AlexHowansky/bbkf
  */
 
-namespace Ork;
+namespace Ork\BooBooKittyFuck;
 
 /**
  * BooBooKittyFuck (de)compiler.
  */
-class BooBooKittyFuck
+class Compiler
 {
 
     // The BF instructions and their image file names.
