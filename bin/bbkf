@@ -21,7 +21,7 @@ function stdin()
 }
 
 try {
-    (new \dotzero\Brainfuck((new \Ork\BooBooKittyFuck\Compiler())->setImage($argv[1])->getSource(), stdin()))->run();
+    (new \dotzero\Brainfuck((new \Ork\BooBooKittyFuck\Compiler())->setImage($argv[1])->getSource(), stdin(), true))->run();
 } catch (Exception $e) {
     echo 'Error: ' . $e->getMessage() . "\n";
 }
