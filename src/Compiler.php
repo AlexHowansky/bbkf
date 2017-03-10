@@ -4,7 +4,7 @@
  * Ork
  *
  * @package   Ork_BooBooKittyFuck
- * @copyright 2016 Alex Howansky (https://github.com/AlexHowansky)
+ * @copyright 2016-2017 Alex Howansky (https://github.com/AlexHowansky)
  * @license   https://github.com/AlexHowansky/bbkf/blob/master/LICENSE MIT License
  * @link      https://github.com/AlexHowansky/bbkf
  */
@@ -53,7 +53,7 @@ class Compiler
     /**
      * The image compression quality.
      *
-     * @var integer
+     * @var int
      */
     protected $quality = 40;
 
@@ -109,7 +109,7 @@ class Compiler
      *
      * @return \Imagick The image for this program.
      */
-    public function getImage()
+    public function getImage(): \Imagick
     {
         if ($this->image instanceof \Imagick === false) {
             throw new \RuntimeException('Image must first be set with setImage() or setSource().');
@@ -122,7 +122,7 @@ class Compiler
      *
      * @return string The path for the cat images.
      */
-    public function getImagePath()
+    public function getImagePath(): string
     {
         return $this->imagePath;
     }
@@ -130,9 +130,9 @@ class Compiler
     /**
      * Get the image compression quality.
      *
-     * @return integer The image compression quality.
+     * @return int The image compression quality.
      */
-    public function getQuality()
+    public function getQuality(): int
     {
         return $this->quality;
     }
@@ -142,7 +142,7 @@ class Compiler
      *
      * @return string The Brainfuck source for this program.
      */
-    public function getSource()
+    public function getSource(): string
     {
         if ($this->source === null) {
             throw new \RuntimeException('Source must first be set with setImage() or setSource().');
@@ -155,7 +155,7 @@ class Compiler
      *
      * @return float The image comparison threshold.
      */
-    public function getThreshold()
+    public function getThreshold(): float
     {
         return $this->threshold;
     }
@@ -165,7 +165,7 @@ class Compiler
      *
      * @return int The image grid tile size.
      */
-    public function getTileSize()
+    public function getTileSize(): int
     {
         return $this->tileSize;
     }
@@ -175,7 +175,7 @@ class Compiler
      *
      * @return int The number of tile columns in the image.
      */
-    public function getXSize()
+    public function getXSize(): int
     {
         return $this->xSize;
     }
@@ -185,7 +185,7 @@ class Compiler
      *
      * @return int The number of tile rows in the image.
      */
-    public function getYSize()
+    public function getYSize(): int
     {
         return $this->ySize;
     }
@@ -200,7 +200,7 @@ class Compiler
      *
      * @return BooBooKittyFuck Allow method chaining.
      */
-    public function setImage($file)
+    public function setImage($file): self
     {
 
         if (file_exists($file) === false) {
@@ -248,7 +248,7 @@ class Compiler
      *
      * @return BooBooKittyFuck Allow method chaining.
      */
-    public function setImagePath($path)
+    public function setImagePath($path): self
     {
         if (is_dir(realpath($path)) === false) {
             throw new \RuntimeException($dir . ' is not a directory.');
@@ -267,11 +267,11 @@ class Compiler
     /**
      * Set the image compression quality.
      *
-     * @param integer $quality The image compression quality.
+     * @param int $quality The image compression quality.
      *
      * @return BooBooKittyFuck Allow method chaining.
      */
-    public function setQuality($quality)
+    public function setQuality($quality): self
     {
         $this->quality = (int) $quality;
         return $this;
@@ -284,7 +284,7 @@ class Compiler
      *
      * @return BooBooKittyFuck Allow method chaining.
      */
-    public function setSource($bf)
+    public function setSource($bf): self
     {
 
         // Try to determine if the parameter is a file name or source code.
@@ -344,7 +344,7 @@ class Compiler
      *
      * @return BooBooKittyFuck Allow method chaining.
      */
-    public function setThreshold($threshold)
+    public function setThreshold($threshold): self
     {
         $this->threshold = $threshold;
         return $this;
@@ -357,7 +357,7 @@ class Compiler
      *
      * @return BooBooKittyFuck Allow method chaining.
      */
-    public function setTileSize($size)
+    public function setTileSize($size): self
     {
         $this->tileSize = $size;
         return $this;
@@ -370,7 +370,7 @@ class Compiler
      *
      * @return BooBooKittyFuck Allow method chaining.
      */
-    public function setXSize($xSize)
+    public function setXSize($xSize): self
     {
         $this->xSize = $xSize;
         return $this;
@@ -383,7 +383,7 @@ class Compiler
      *
      * @return BooBooKittyFuck Allow method chaining.
      */
-    public function setYSize($ySize)
+    public function setYSize($ySize): self
     {
         $this->ySize = $ySize;
         return $this;
