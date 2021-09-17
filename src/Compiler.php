@@ -4,7 +4,7 @@
  * Ork
  *
  * @package   Ork_BooBooKittyFuck
- * @copyright 2016-2017 Alex Howansky (https://github.com/AlexHowansky)
+ * @copyright 2016-2021 Alex Howansky (https://github.com/AlexHowansky)
  * @license   https://github.com/AlexHowansky/bbkf/blob/master/LICENSE MIT License
  * @link      https://github.com/AlexHowansky/bbkf
  */
@@ -18,7 +18,7 @@ class Compiler
 {
 
     // The BF instructions and their image file names.
-    const INSTRUCTIONS = [
+    protected const INSTRUCTIONS = [
         '+' => 'increment',
         '-' => 'decrement',
         '<' => 'right',
@@ -32,82 +32,84 @@ class Compiler
     /**
      * The cat images
      *
-     * @var array
+     * @var array<string, \Imagick>
      */
-    protected $cats = [];
+    protected array $cats = [];
 
     /**
      * The image for this program.
      *
-     * @var \Imagick
+     * @var ?\Imagick
      */
-    protected $image = null;
+    protected ?\Imagick $image = null;
 
     /**
      * The path to the cat images.
      *
      * @var string
      */
-    protected $imagePath = null;
+    protected string $imagePath;
 
     /**
      * The image compression quality.
      *
      * @var int
      */
-    protected $quality = 40;
-
-    /**
-     * The Brainfuck source for this program.
-     *
-     * @var string
-     */
-    protected $source = null;
-
-    /**
-     * The value under which images are considered identical.
-     *
-     * @var float
-     */
-    protected $threshold = 0.01;
-
-    /**
-     * The image grid tile size.
-     *
-     * @var int
-     */
-    protected $tileSize = 128;
+    protected int $quality = 40;
 
     /**
      * The number of tile columns in the image.
      *
      * Defaults to square-ish if not specified.
      *
-     * @var int
+     * @var ?int
      */
-    protected $xSize = null;
+    protected ?int $sizeX = null;
 
     /**
      * The number of tile rows in the image.
      *
      * Defaults to square-ish if not specified.
      *
+     * @var ?int
+     */
+    protected ?int $sizeY = null;
+
+    /**
+     * The Brainfuck source for this program.
+     *
+     * @var ?string
+     */
+    protected ?string $source = null;
+
+    /**
+     * The value under which images are considered identical.
+     *
+     * @var float
+     */
+    protected float $threshold = 0.01;
+
+    /**
+     * The image grid tile size.
+     *
      * @var int
      */
-    protected $ySize = null;
+    protected int $tileSize = 128;
 
     /**
      * Constructor.
      */
     public function __construct()
     {
-        $this->setImagePath(realpath(__DIR__ . '/../images/'));
+        $this->setImagePath((string) realpath(__DIR__ . '/../images/'));
     }
 
     /**
      * Get the image for this program.
      *
      * @return \Imagick The image for this program.
+     *
+     * @throws \RuntimeException If no image has been set yet.
      */
     public function getImage(): \Imagick
     {
@@ -138,9 +140,31 @@ class Compiler
     }
 
     /**
+     * Get the number of tile columns in the image.
+     *
+     * @return ?int The number of tile columns in the image.
+     */
+    public function getSizeX(): ?int
+    {
+        return $this->sizeX;
+    }
+
+    /**
+     * Get the number of tile rows in the image.
+     *
+     * @return ?int The number of tile rows in the image.
+     */
+    public function getSizeY(): ?int
+    {
+        return $this->sizeY;
+    }
+
+    /**
      * Get the Brainfuck source for this program
      *
      * @return string The Brainfuck source for this program.
+     *
+     * @throws \RuntimeException If no source has been set yet.
      */
     public function getSource(): string
     {
@@ -171,26 +195,6 @@ class Compiler
     }
 
     /**
-     * Get the number of tile columns in the image.
-     *
-     * @return int The number of tile columns in the image.
-     */
-    public function getXSize(): int
-    {
-        return $this->xSize;
-    }
-
-    /**
-     * Get the number of tile rows in the image.
-     *
-     * @return int The number of tile rows in the image.
-     */
-    public function getYSize(): int
-    {
-        return $this->ySize;
-    }
-
-    /**
      * Set the image for this program.
      *
      * This will open the image file and analyze it against the
@@ -198,9 +202,11 @@ class Compiler
      *
      * @param string $file The source file containing the image.
      *
-     * @return BooBooKittyFuck Allow method chaining.
+     * @return self Allow method chaining.
+     *
+     * @throws \RuntimeException If the image file does not exist.
      */
-    public function setImage($file): self
+    public function setImage(string $file): self
     {
 
         if (file_exists($file) === false) {
@@ -216,11 +222,11 @@ class Compiler
         }
 
         $this->source = '';
-        $this->xSize = $this->image->getImageWidth() / $this->getTileSize();
-        $this->ySize = $this->image->getImageHeight() / $this->getTileSize();
+        $this->sizeX = $this->image->getImageWidth() / $this->getTileSize();
+        $this->sizeY = $this->image->getImageHeight() / $this->getTileSize();
 
-        for ($y = 0; $y < $this->ySize; $y++) {
-            for ($x = 0; $x < $this->xSize; $x++) {
+        for ($y = 0; $y < $this->sizeY; $y++) {
+            for ($x = 0; $x < $this->sizeX; $x++) {
                 $tile = $this->image->clone();
                 $tile->cropImage(
                     $this->getTileSize(),
@@ -246,12 +252,14 @@ class Compiler
      *
      * @param string $path The path for the cat iamges.
      *
-     * @return BooBooKittyFuck Allow method chaining.
+     * @return self Allow method chaining.
+     *
+     * @throws \RuntimeException If no image can be found for an instruction.
      */
-    public function setImagePath($path): self
+    public function setImagePath(string $path): self
     {
-        if (is_dir(realpath($path)) === false) {
-            throw new \RuntimeException($dir . ' is not a directory.');
+        if (is_dir((string) realpath($path)) === false) {
+            throw new \RuntimeException($path . ' is not a directory.');
         }
         $this->imagePath = rtrim($path, '/') . '/';
         foreach (self::INSTRUCTIONS as $instruction => $name) {
@@ -269,11 +277,37 @@ class Compiler
      *
      * @param int $quality The image compression quality.
      *
-     * @return BooBooKittyFuck Allow method chaining.
+     * @return self Allow method chaining.
      */
-    public function setQuality($quality): self
+    public function setQuality(int $quality): self
     {
         $this->quality = (int) $quality;
+        return $this;
+    }
+
+    /**
+     * Set the number of tile columns in the image.
+     *
+     * @param int $sizeX The number of tile columns in the image.
+     *
+     * @return self Allow method chaining.
+     */
+    public function setSizeX(int $sizeX): self
+    {
+        $this->sizeX = $sizeX;
+        return $this;
+    }
+
+    /**
+     * Set the number of tile rows in the image.
+     *
+     * @param int $sizeY The number of tile rows in the image.
+     *
+     * @return self Allow method chaining.
+     */
+    public function setSizeY(int $sizeY): self
+    {
+        $this->sizeY = $sizeY;
         return $this;
     }
 
@@ -282,41 +316,43 @@ class Compiler
      *
      * @param string $bf The Brainfuck source for this program.
      *
-     * @return BooBooKittyFuck Allow method chaining.
+     * @return self Allow method chaining.
+     *
+     * @throws \RuntimeException If the X/Y size is not large enough to contain the required number of tiles.
      */
-    public function setSource($bf): self
+    public function setSource(string $bf): self
     {
 
         // Try to determine if the parameter is a file name or source code.
         $regex = '/[^\\' . implode('\\', array_keys(self::INSTRUCTIONS)) . ']/';
         if (preg_match($regex, $bf) === 1 && file_exists($bf) === true) {
-            $bf = file_get_contents($bf);
+            $bf = (string) file_get_contents($bf);
         }
 
         // Strip non-BF characters.
-        $this->source = preg_replace($regex, '', $bf);
+        $this->source = (string) preg_replace($regex, '', $bf);
         $num = 0;
         $montage = new \Imagick();
 
         $size = strlen($this->source);
-        if (empty($this->xSize) === true) {
-            if (empty($this->ySize) === true) {
-                $this->xSize = ceil(sqrt($size));
+        if (empty($this->sizeX) === true) {
+            if (empty($this->sizeY) === true) {
+                $this->sizeX = (int) ceil(sqrt($size));
             } else {
-                $this->xSize = ceil($size / $this->ySize);
+                $this->sizeX = (int) ceil($size / $this->sizeY);
             }
         }
-        if (empty($this->ySize) === true) {
-            $this->ySize = ceil($size / $this->xSize);
+        if (empty($this->sizeY) === true) {
+            $this->sizeY = (int) ceil($size / $this->sizeX);
         }
-        if ($this->xSize * $this->ySize < $size) {
+        if ($this->sizeX * $this->sizeY < $size) {
             throw new \RuntimeException(
-                'xSize and ySize are not large enough to contain the required number of tiles.'
+                'sizeX and sizeY are not large enough to contain the required number of tiles.'
             );
         }
 
-        for ($y = 0; $y < $this->ySize; $y++) {
-            for ($x = 0; $x < $this->xSize; $x++) {
+        for ($y = 0; $y < $this->sizeY; $y++) {
+            for ($x = 0; $x < $this->sizeX; $x++) {
                 if ($num < $size) {
                     $montage->addImage($this->cats[$this->source[$num++]]);
                 }
@@ -325,7 +361,7 @@ class Compiler
 
         $this->image = $montage->montageImage(
             new \ImagickDraw(),
-            $this->xSize . 'x' . $this->ySize . '+0+0',
+            $this->sizeX . 'x' . $this->sizeY . '+0+0',
             $this->tileSize . 'x' . $this->tileSize . '+0+0',
             \Imagick::MONTAGEMODE_UNFRAME,
             '0x0+0+0'
@@ -342,9 +378,9 @@ class Compiler
      *
      * @param float $threshold The image comparison threshold.
      *
-     * @return BooBooKittyFuck Allow method chaining.
+     * @return self Allow method chaining.
      */
-    public function setThreshold($threshold): self
+    public function setThreshold(float $threshold): self
     {
         $this->threshold = $threshold;
         return $this;
@@ -355,37 +391,11 @@ class Compiler
      *
      * @param int $size The image grid tile size.
      *
-     * @return BooBooKittyFuck Allow method chaining.
+     * @return self Allow method chaining.
      */
-    public function setTileSize($size): self
+    public function setTileSize(int $size): self
     {
         $this->tileSize = $size;
-        return $this;
-    }
-
-    /**
-     * Set the number of tile columns in the image.
-     *
-     * @param int $xSize The number of tile columns in the image.
-     *
-     * @return BooBooKittyFuck Allow method chaining.
-     */
-    public function setXSize($xSize): self
-    {
-        $this->xSize = $xSize;
-        return $this;
-    }
-
-    /**
-     * Set the number of tile rows in the image.
-     *
-     * @param int $ySize The number of tile rows in the image.
-     *
-     * @return BooBooKittyFuck Allow method chaining.
-     */
-    public function setYSize($ySize): self
-    {
-        $this->ySize = $ySize;
         return $this;
     }
 

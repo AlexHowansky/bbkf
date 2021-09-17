@@ -13,10 +13,12 @@
     ],
     "require": {
         "dotzero/brainfuck": "*",
-        "ext-imagick": "*"
+        "ext-imagick": "*",
+        "php": ">=7.3.0"
     },
     "require-dev": {
-        "ork/phpcs": "dev-master"
+        "ork/phpcs": "dev-master",
+        "phpstan/phpstan": "^0.12.99"
     },
     "autoload": {
         "psr-4": {
@@ -24,6 +26,7 @@
         }
     },
     "scripts": {
-        "phpcs": "vendor/bin/phpcs"
+        "phpcs": "phpcs",
+        "phpstan": "phpstan analyze"
     }
 }
