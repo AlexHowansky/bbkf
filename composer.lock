@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4c08402c203e9f4a4079d9ccf633453f",
+    "content-hash": "2a86b366022c08ab797feb0557bcfa58",
     "packages": [
         {
             "name": "dotzero/brainfuck",
@@ -127,16 +127,16 @@
         },
         {
             "name": "ork/phpcs",
-            "version": "2.6.0",
+            "version": "2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/AlexHowansky/ork-phpcs.git",
-                "reference": "724ee29da5bdb4a0732ec0dce649ee2db8e61e23"
+                "reference": "171509735afd18e5568f53f3c24e010052d594b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/AlexHowansky/ork-phpcs/zipball/724ee29da5bdb4a0732ec0dce649ee2db8e61e23",
-                "reference": "724ee29da5bdb4a0732ec0dce649ee2db8e61e23",
+                "url": "https://api.github.com/repos/AlexHowansky/ork-phpcs/zipball/171509735afd18e5568f53f3c24e010052d594b1",
+                "reference": "171509735afd18e5568f53f3c24e010052d594b1",
                 "shasum": ""
             },
             "require": {
@@ -163,22 +163,22 @@
             ],
             "support": {
                 "issues": "https://github.com/AlexHowansky/ork-phpcs/issues",
-                "source": "https://github.com/AlexHowansky/ork-phpcs/tree/2.6.0"
+                "source": "https://github.com/AlexHowansky/ork-phpcs/tree/2.7.0"
             },
-            "time": "2021-10-20T23:24:56+00:00"
+            "time": "2021-11-14T19:07:32+00:00"
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.99",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "b4d40f1d759942f523be267a1bab6884f46ca3f7"
+                "reference": "cbe085f9fdead5b6d62e4c022ca52dc9427a10ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/b4d40f1d759942f523be267a1bab6884f46ca3f7",
-                "reference": "b4d40f1d759942f523be267a1bab6884f46ca3f7",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/cbe085f9fdead5b6d62e4c022ca52dc9427a10ee",
+                "reference": "cbe085f9fdead5b6d62e4c022ca52dc9427a10ee",
                 "shasum": ""
             },
             "require": {
@@ -194,7 +194,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.12-dev"
+                    "dev-master": "1.2-dev"
                 }
             },
             "autoload": {
@@ -209,7 +209,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/0.12.99"
+                "source": "https://github.com/phpstan/phpstan/tree/1.2.0"
             },
             "funding": [
                 {
@@ -229,7 +229,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-09-12T20:09:55+00:00"
+            "time": "2021-11-18T14:09:01+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",

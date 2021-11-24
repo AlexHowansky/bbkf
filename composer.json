@@ -17,8 +17,8 @@
         "php": ">=7.4.0"
     },
     "require-dev": {
-        "ork/phpcs": "^2.6.0",
-        "phpstan/phpstan": ">=0.12.99 <1.0.0"
+        "ork/phpcs": "^2.7.0",
+        "phpstan/phpstan": "^1.2"
     },
     "autoload": {
         "psr-4": {
@@ -27,6 +27,6 @@
     },
     "scripts": {
         "phpcs": "phpcs",
-        "phpstan": "phpstan analyze"
+        "phpstan": "phpstan"
     }
 }
