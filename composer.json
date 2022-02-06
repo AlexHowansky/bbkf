@@ -18,7 +18,7 @@
     },
     "require-dev": {
         "ork/phpcs": "^2.7.0",
-        "phpstan/phpstan": "^1.2"
+        "phpstan/phpstan": "^1.4"
     },
     "autoload": {
         "psr-4": {
@@ -28,5 +28,10 @@
     "scripts": {
         "phpcs": "phpcs",
         "phpstan": "phpstan"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }
