@@ -11,12 +11,12 @@
             "version": "1.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dotzero/brainfuck-php.git",
+                "url": "https://github.com/zero-archive/brainfuck-php.git",
                 "reference": "887a3aff5ae7c6a833040fdd5d5d712ddc89c9a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotzero/brainfuck-php/zipball/887a3aff5ae7c6a833040fdd5d5d712ddc89c9a6",
+                "url": "https://api.github.com/repos/zero-archive/brainfuck-php/zipball/887a3aff5ae7c6a833040fdd5d5d712ddc89c9a6",
                 "reference": "887a3aff5ae7c6a833040fdd5d5d712ddc89c9a6",
                 "shasum": ""
             },
@@ -48,9 +48,10 @@
                 "interpreter"
             ],
             "support": {
-                "issues": "https://github.com/dotzero/brainfuck-php/issues",
-                "source": "https://github.com/dotzero/brainfuck-php/tree/master"
+                "issues": "https://github.com/zero-archive/brainfuck-php/issues",
+                "source": "https://github.com/zero-archive/brainfuck-php/tree/1.1"
             },
+            "abandoned": true,
             "time": "2016-11-12T08:07:48+00:00"
         }
     ],
@@ -132,21 +133,21 @@
         },
         {
             "name": "ork/phpcs",
-            "version": "2.7.0",
+            "version": "2.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/AlexHowansky/ork-phpcs.git",
-                "reference": "171509735afd18e5568f53f3c24e010052d594b1"
+                "reference": "1fe39495fe2b675c89f81d080d78f6df0dbe6fb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/AlexHowansky/ork-phpcs/zipball/171509735afd18e5568f53f3c24e010052d594b1",
-                "reference": "171509735afd18e5568f53f3c24e010052d594b1",
+                "url": "https://api.github.com/repos/AlexHowansky/ork-phpcs/zipball/1fe39495fe2b675c89f81d080d78f6df0dbe6fb4",
+                "reference": "1fe39495fe2b675c89f81d080d78f6df0dbe6fb4",
                 "shasum": ""
             },
             "require": {
-                "dealerdirect/phpcodesniffer-composer-installer": ">=0.7.1 <1.0.0",
-                "squizlabs/php_codesniffer": "^3.6"
+                "dealerdirect/phpcodesniffer-composer-installer": ">=0.7.2 <1.0.0",
+                "squizlabs/php_codesniffer": "^3.7"
             },
             "type": "phpcodesniffer-standard",
             "notification-url": "https://packagist.org/downloads/",
@@ -168,22 +169,22 @@
             ],
             "support": {
                 "issues": "https://github.com/AlexHowansky/ork-phpcs/issues",
-                "source": "https://github.com/AlexHowansky/ork-phpcs/tree/2.7.0"
+                "source": "https://github.com/AlexHowansky/ork-phpcs/tree/2.8.1"
             },
-            "time": "2021-11-14T19:07:32+00:00"
+            "time": "2022-10-02T23:26:52+00:00"
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.7.1",
+            "version": "1.10.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "e3baed2ee2ef322e0f9b8fe8f87fdbe024c7c719"
+                "reference": "1fb6f494d82455151ecf15c5c191923f5d84324e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/e3baed2ee2ef322e0f9b8fe8f87fdbe024c7c719",
-                "reference": "e3baed2ee2ef322e0f9b8fe8f87fdbe024c7c719",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/1fb6f494d82455151ecf15c5c191923f5d84324e",
+                "reference": "1fb6f494d82455151ecf15c5c191923f5d84324e",
                 "shasum": ""
             },
             "require": {
@@ -207,9 +208,13 @@
                 "MIT"
             ],
             "description": "PHPStan - PHP Static Analysis Tool",
+            "keywords": [
+                "dev",
+                "static analysis"
+            ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.7.1"
+                "source": "https://github.com/phpstan/phpstan/tree/1.10.5"
             },
             "funding": [
                 {
@@ -221,28 +226,24 @@
                     "type": "github"
                 },
                 {
-                    "url": "https://www.patreon.com/phpstan",
-                    "type": "patreon"
-                },
-                {
                     "url": "https://tidelift.com/funding/github/packagist/phpstan/phpstan",
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-24T09:05:09+00:00"
+            "time": "2023-03-07T16:48:45+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.6.2",
+            "version": "3.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "5e4e71592f69da17871dba6e80dd51bce74a351a"
+                "reference": "ed8e00df0a83aa96acf703f8c2979ff33341f879"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/5e4e71592f69da17871dba6e80dd51bce74a351a",
-                "reference": "5e4e71592f69da17871dba6e80dd51bce74a351a",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/ed8e00df0a83aa96acf703f8c2979ff33341f879",
+                "reference": "ed8e00df0a83aa96acf703f8c2979ff33341f879",
                 "shasum": ""
             },
             "require": {
@@ -278,14 +279,15 @@
             "homepage": "https://github.com/squizlabs/PHP_CodeSniffer",
             "keywords": [
                 "phpcs",
-                "standards"
+                "standards",
+                "static analysis"
             ],
             "support": {
                 "issues": "https://github.com/squizlabs/PHP_CodeSniffer/issues",
                 "source": "https://github.com/squizlabs/PHP_CodeSniffer",
                 "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
             },
-            "time": "2021-12-12T21:44:58+00:00"
+            "time": "2023-02-22T23:07:41+00:00"
         }
     ],
     "aliases": [],
